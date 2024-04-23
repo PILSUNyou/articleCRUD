@@ -43,7 +43,7 @@ public class ArticleDao {
         return articles;
     }
 
-    public List<Article> getArticle(int numberId) {
+    public Article getArticle(int numberId) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("SELECT * "));
@@ -56,15 +56,14 @@ public class ArticleDao {
             return null;
         }
 
-        return (List<Article>) new Article(row);
+        return new Article(row);
     }
 
     public int modify(int id, String modifyTitle, String modifyBody) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("UPDATE article "));
-        sb.append(String.format("SET updateDate = NOW(), "));
-        sb.append(String.format("title = '%s', ",modifyTitle));
+        sb.append(String.format("SET title = '%s', ",modifyTitle));
         sb.append(String.format("body = '%s' ", modifyBody));
         sb.append(String.format("WHERE id = %d" ,id));
 
@@ -78,5 +77,21 @@ public class ArticleDao {
         sb.append(String.format("WHERE id = %d ", deleteArticle));
 
         return dbConnection.delete((sb.toString()));
+    }
+
+    public Article getdetailArticle(int detailId) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("SELECT * "));
+        sb.append(String.format("FROM article "));
+        sb.append(String.format("WHERE id = %d ", detailId));
+
+        Map<String, Object> row = dbConnection.selectRow(sb.toString());
+
+        if (row.isEmpty()) {
+            return null;
+        }
+
+        return new Article(row);
     }
 }

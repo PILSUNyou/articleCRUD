@@ -15,7 +15,7 @@ public class ArticleService {
     public List<Article> getArticles() {
         return new ArticleDao().getArticles();
     }
-    public List<Article> getAritcle(int numberId){
+    public Article getAritcle(int numberId){
         return articleDao.getArticle(numberId);
     }
 
@@ -25,5 +25,9 @@ public class ArticleService {
 
     public void delete(int deleteArticle) {
         articleDao.delete(deleteArticle);
+    }
+
+    public Article getdetailArticle(int detailId) {
+        return articleDao.getdetailArticle(detailId);
     }
 }
